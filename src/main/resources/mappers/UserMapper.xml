@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.modir.user.UserMapper">
+
+    <insert id="InsUser">
+        INSERT INTO `user`
+        SET `uuid` = #{uuid},
+        username = #{userName},
+        email = #{email}
+    </insert>
+
+    <select id="sellUser">
+        SELECT `uuid`, username, email
+        FROM `user`
+    </select>
+</mapper>

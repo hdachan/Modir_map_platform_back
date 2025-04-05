@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.modir.feed.FeedMapper">
+    <insert id="insFeed">
+        INSERT INTO `feed`
+        SET title = #{title},
+        content = #{content},
+        `uuid` = #{uuid};
+    </insert>
+
+    <select id="selFeed">
+        SELECT A.feed_id AS feedId, B.username,
+        A.title, A.content, A.hits,A.created_at AS createdAt
+        FROM feed A
+        INNER JOIN `user` B
+        ON A.`uuid` = B.`uuid`
+        WHERE A.`status` = 0
+    </select>
+
+    <select id="selFeedDetail">
+        SELECT B.username, A.title, A.content, A.hits, A.created_at AS createdAt
+        FROM feed A
+        INNER JOIN `user` B
+        ON A.`uuid` =B. `uuid`
+        WHERE feed_id = #{feedId};
+    </select>
+
+    <update id="updFeed">
+        UPDATE feed
+        <set>
+            <if test="title !=null and title !='' ">
+                title = #{title}
+            </if>
+            <if test="content !=null and content !='' ">
+                ,content = #{content}
+            </if>
+        </set>
+        WHERE feed_id =#{feedId};
+    </update>
+
+    <update id="delFeed">
+        UPDATE feed
+        SET `status` = 1
+        WHERE feed_id = #{feedId};
+    </update>
+
+
+</mapper>

@@ -1,0 +1,31 @@
+const:
+  default-page-size: 20
+
+file:
+  directory: D:/2024-02/download/modir
+
+mybatis:
+  mapper-locations: mappers/**/*.xml
+
+spring:
+  application:
+    name: GreenGramVer2
+  datasource:
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    url: jdbc:log4jdbc:mariadb://localhost/modir
+    username: root
+    password: dc09150915!@
+  servlet:
+    multipart:
+      max-file-size: 15MB
+
+springdoc:
+  swagger-ui:
+    default-model-expand-depth: 10
+    display-request-duration: true
+    groups-order: asc
+    operations-sorter: method
+    path: /swagger
+    tags-sorter: alpha
+  cache:
+    disabled: true
