@@ -1,0 +1,60 @@
+// lib/routes/router.dart
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import '../views/home_screen.dart';
+import '../views/login_selection_screen.dart';
+import '../viewmodels/login_viewmodel.dart';
+
+final GoRouter router = GoRouter(
+  initialLocation: '/auth', // 앱 시작 시 인증 확인
+  routes: [
+    GoRoute(
+      path: '/auth',
+      builder: (context, state) => AuthWrapper(),
+    ),
+    GoRoute(
+      path: '/home',
+      builder: (context, state) => HomeScreen(),
+    ),
+    GoRoute(
+      path: '/login',
+      builder: (context, state) => login_total_screen(),
+    ),
+  ],
+  redirect: (context, state) async {
+    final authViewModel = Provider.of<AuthViewModel>(context, listen: false);
+    final isLoggedIn = await authViewModel.checkSession();
+    if (!isLoggedIn && state.uri.toString() != '/login') {
+      return '/login'; // 로그인 안 했으면 로그인 화면으로
+    }
+    if (isLoggedIn && state.uri.toString() == '/login') {
+      return '/home'; // 로그인 했는데 로그인 화면에 있으면 홈으로
+    }
+    return null; // 그 외에는 원래 경로 유지
+  },
+);
+
+// AuthWrapper는 그대로 재사용
+class AuthWrapper extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final authViewModel = Provider.of<AuthViewModel>(context, listen: false);
+
+    return FutureBuilder<bool>(
+      future: authViewModel.checkSession(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Scaffold(body: Center(child: CircularProgressIndicator()));
+        }
+        if (snapshot.hasData && snapshot.data == true) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            context.go('/home'); // go_router로 이동
+          });
+          return SizedBox();
+        }
+        return login_total_screen();
+      },
+    );
+  }
+}
