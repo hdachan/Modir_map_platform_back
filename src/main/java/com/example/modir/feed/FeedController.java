@@ -16,8 +16,9 @@ public class FeedController {
     private final FeedService feedService;
 
     @PostMapping
-    @Operation(summary = "킴우준병신")
-    public ResultResponse<Integer> postFeed(InsFeedReq req){
+    @Operation(summary = "게시글 등록")
+    //Spring이 JSON을 파라미터로 매핑하지 못해서 오류가 나는 거야. JSON으로 데이터 받을 땐 반드시 @RequestBody 붙여야 해!
+    public ResultResponse<Integer> postFeed(@RequestBody InsFeedReq req){
         int result = feedService.postFeed(req);
 
         return ResultResponse.<Integer>builder()
