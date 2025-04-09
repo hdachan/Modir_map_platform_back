@@ -2,7 +2,7 @@ const:
   default-page-size: 20
 
 file:
-  directory: D:/2024-02/download/modir
+  directory: D:\KWJ\feed
 
 mybatis:
   mapper-locations: mappers/**/*.xml

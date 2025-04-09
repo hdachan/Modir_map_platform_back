@@ -6,6 +6,7 @@ import com.example.modir.feed.model.*;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -18,10 +19,11 @@ public class FeedController {
     @PostMapping
     @Operation(summary = "게시글 등록")
     //Spring이 JSON을 파라미터로 매핑하지 못해서 오류가 나는 거야. JSON으로 데이터 받을 땐 반드시 @RequestBody 붙여야 해!
-    public ResultResponse<Integer> postFeed(@RequestBody InsFeedReq req){
-        int result = feedService.postFeed(req);
+    public ResultResponse<FeedPostRes> postFeed(@RequestPart(required = false)List<MultipartFile> pics
+                                            ,@RequestPart InsFeedReq req){
+        FeedPostRes result = feedService.postFeed(req, pics);
 
-        return ResultResponse.<Integer>builder()
+        return ResultResponse.<FeedPostRes>builder()
                 .resultMessage("피드 등록 완료")
                 .resultData(result)
                 .build();
