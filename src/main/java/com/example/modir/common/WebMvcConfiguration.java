@@ -33,7 +33,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**") // 모든 엔드포인트에 적용
-                .allowedOrigins("http://localhost:56689/") // Flutter 웹 출처
+                .allowedOrigins("http://localhost:55189/") // Flutter 웹 출처
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // 허용할 HTTP 메서드
                 .allowedHeaders("*") // 모든 헤더 허용
                 .allowCredentials(true); // 인증 정보 포함 여부
