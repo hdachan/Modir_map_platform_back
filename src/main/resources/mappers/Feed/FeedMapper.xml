@@ -10,21 +10,38 @@
         `uuid` = #{uuid};
     </insert>
 
+    <!-- 전체 리스트로 불러오는거 -->
     <select id="selFeed">
-        SELECT A.feed_id AS feedId, B.username,
-        A.title, A.content, A.hits,A.created_at AS createdAt
+        SELECT A.feed_id AS feedId, B.username, A.title, A.content
+        , A.hits, A.created_at AS createdAt
+        , IFNULL(COUNT(C.feed_id), 0) AS sumLike
         FROM feed A
         INNER JOIN `user` B
         ON A.`uuid` = B.`uuid`
+        LEFT JOIN feed_like C
+        ON A.feed_id = C.feed_id
         WHERE A.`status` = 0
+        GROUP BY A.feed_id;
     </select>
 
+    <!-- 단일 리스트로 불러오는거 -->
     <select id="selFeedDetail">
-        SELECT B.username, A.title, A.content, A.hits, A.created_at AS createdAt
+        SELECT B.username, A.title
+        , A.content, A.hits
+        , A.created_at AS createdAt
+        , IFNULL(COUNT(C.feed_id), 0) AS sumLike
+        , IF(EXISTS (
+        SELECT 1
+        FROM feed_like FL
+        WHERE FL.feed_id = A.feed_id
+        AND FL.uuid = #{uuid}
+        ), 1, 0) AS status
         FROM feed A
         INNER JOIN `user` B
-        ON A.`uuid` =B. `uuid`
-        WHERE feed_id = #{feedId};
+        ON A.`uuid` = B.`uuid`
+        LEFT JOIN feed_like C
+        ON A.feed_id = C.feed_id
+        WHERE A.feed_id = #{feedId};
     </select>
 
     <update id="updFeed">
@@ -45,6 +62,19 @@
         SET `status` = 1
         WHERE feed_id = #{feedId};
     </update>
+
+    <update id="updFeedHits">
+        UPDATE feed
+        SET hits = hits + 1
+        WHERE feed_id  = #{feedId};
+    </update>
+
+    <insert id="insFeedHits">
+        INSERT INTO feed_hits (uuid, feed_id)
+        VALUES (#{uuid}, #{feedId})
+        ON DUPLICATE KEY UPDATE
+        updated_at = NOW()
+    </insert>
 
 
 </mapper>

@@ -15,4 +15,6 @@ public interface FeedMapper {
     SelFeedDetailRes selFeedDetail(SelFeedDetailReq req);
     int updFeed(UpdFeedReq req);
     int delFeed(long feedId);
+    int updFeedHits(long feedId);
+    int insFeedHits(SelFeedDetailReq req);
 }

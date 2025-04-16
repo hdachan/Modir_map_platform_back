@@ -12,4 +12,8 @@ public class SelFeedDetailRes {
     private String content;
     private int hits;
     private String createdAt;
+    private int sumLike;
+    private int status;
+
+
 }

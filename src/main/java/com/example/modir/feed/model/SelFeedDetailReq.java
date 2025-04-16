@@ -9,5 +9,5 @@ import lombok.Setter;
 
 public class SelFeedDetailReq {
     private long feedId;
-
+    private String uuid;
 }

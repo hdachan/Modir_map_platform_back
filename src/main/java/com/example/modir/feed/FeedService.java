@@ -61,6 +61,10 @@ public class FeedService {
     public SelFeedDetailRes getFeedDetail(SelFeedDetailReq req) {
         SelFeedDetailRes res = feedMapper.selFeedDetail(req);
 
+        long feedId = req.getFeedId();
+        feedMapper.updFeedHits(feedId);
+        feedMapper.insFeedHits(req);
+
         return res;
     }
 
