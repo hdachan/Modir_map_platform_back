@@ -15,4 +15,8 @@
         SELECT `uuid`, username, email
         FROM `user`
     </select>
+
+    <select id="countUserByUuid" resultType="int">
+        SELECT COUNT(*) FROM users WHERE uuid = #{uuId}
+    </select>
 </mapper>

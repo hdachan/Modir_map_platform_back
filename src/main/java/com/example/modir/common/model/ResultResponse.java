@@ -1,12 +1,17 @@
 package com.example.modir.common.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 
 @Getter
 @Builder
+@AllArgsConstructor
 public class ResultResponse<T> {
-    @Schema(title = "결과 메시지")
+    @Schema(title = "결과 상태 코드")
+    private String statusCode;
+    @Schema(title = "결과 메세지")
     private String resultMessage;
     @Schema(title = "결과 내용")
     private T resultData;

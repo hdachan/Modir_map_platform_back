@@ -10,4 +10,5 @@ public interface UserMapper {
     int InsUser(InsUserReq req);
 
     SellUserRes sellUser();
+    int countUserByUuid(String uuid);
 }

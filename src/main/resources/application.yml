@@ -29,3 +29,7 @@ springdoc:
     tags-sorter: alpha
   cache:
     disabled: true
+
+jwt:
+  secret: 7uHx5WOJQDKvEfEU53Lab5zKTvDHAW4fx4GDqIoaPufXe4aS6i/4+RCWk6UV1bI0bYwq2kUOavw+hUIDRI31+w==
+
