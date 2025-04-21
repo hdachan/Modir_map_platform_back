@@ -5,10 +5,8 @@
 <mapper namespace="com.example.modir.user.UserMapper">
 
     <insert id="InsUser">
-        INSERT INTO `user`
-        SET `uuid` = #{uuid},
-        username = #{userName},
-        email = #{email}
+        INSERT INTO `user` (`uuid`, `username`, `email`)
+        VALUES (#{uuid}, #{userName, jdbcType=VARCHAR}, #{email})
     </insert>
 
     <select id="sellUser">
@@ -17,6 +15,6 @@
     </select>
 
     <select id="countUserByUuid" resultType="int">
-        SELECT COUNT(*) FROM users WHERE uuid = #{uuId}
+        SELECT COUNT(*) FROM user WHERE uuid = #{uuId}
     </select>
 </mapper>

@@ -22,18 +22,20 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/pic/**")
                 .addResourceLocations("file:" + uploadPath + "/");
+        // 정적 리소스 경로 명시
+        registry.addResourceHandler("/static/**")
+                .addResourceLocations("classpath:/static/", "classpath:/public/");
     }
 
     @Override
     public void configurePathMatch(PathMatchConfigurer configurer) {
-        // RestController의 모든 URL에 "/api" prefix를 설정
         configurer.addPathPrefix("api", HandlerTypePredicate.forAnnotation(RestController.class));
     }
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**") // 모든 엔드포인트에 적용
-                .allowedOrigins("http://localhost:54934") // Flutter 웹 출처
+        registry.addMapping("/**")
+                .allowedOrigins("http://localhost:64529")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // 허용할 HTTP 메서드
                 .allowedHeaders("*") // 모든 헤더 허용
                 .allowCredentials(true); // 인증 정보 포함 여부

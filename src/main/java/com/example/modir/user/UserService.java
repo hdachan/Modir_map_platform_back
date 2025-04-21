@@ -31,10 +31,15 @@ public class UserService {
         this.jwtKey = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
     }
 
-    public int postUser(InsUserReq req){
-        int res = userMapper.InsUser(req);
-
-        return res;
+    public int postUser(InsUserReq req) {
+        try {
+            System.out.println("Inserting user: " + req); // 디버깅 로그
+            int res = userMapper.InsUser(req);
+            return res;
+        } catch (Exception e) {
+            System.err.println("Error inserting user: " + e.getMessage());
+            throw new RuntimeException("Failed to register user: " + e.getMessage());
+        }
     }
 
     public SellUserRes getUser(){

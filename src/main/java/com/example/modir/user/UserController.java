@@ -16,14 +16,13 @@ public class UserController {
 
     @PostMapping
     public ResultResponse<Integer> postUser(@RequestBody InsUserReq req) {
+        System.out.println("POST /user called with: " + req); // 디버깅 로그
         int result = userService.postUser(req);
-
         return ResultResponse.<Integer>builder()
                 .resultMessage("회원가입")
                 .resultData(result)
                 .build();
     }
-
 
     @GetMapping
     public ResultResponse<SellUserRes> getUser(){
