@@ -10,11 +10,8 @@ mybatis:
 spring:
   application:
     name: GreenGramVer2
-  datasource:
-    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-    url: jdbc:log4jdbc:mariadb://localhost/modir
-    username: root
-    password: dc09150915!@
+  config:
+    import: "classpath:application-secret.yml"
   servlet:
     multipart:
       max-file-size: 15MB
