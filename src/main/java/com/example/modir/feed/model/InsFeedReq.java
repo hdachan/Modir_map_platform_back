@@ -14,5 +14,6 @@ public class InsFeedReq {
     private long feedId;
     private String title;
     private String content;
+    @JsonIgnore
     private String uuid;
 }

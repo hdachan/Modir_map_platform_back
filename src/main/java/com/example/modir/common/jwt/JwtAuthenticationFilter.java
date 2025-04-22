@@ -3,21 +3,22 @@ package com.example.modir.common.jwt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
-import java.util.Collections;
 
-public class JwtAuthenticationFilter implements Filter {
+@RequiredArgsConstructor
+public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final Key key;
 
@@ -26,21 +27,26 @@ public class JwtAuthenticationFilter implements Filter {
     }
 
     @Override
-    public void doFilter(jakarta.servlet.ServletRequest servletRequest, jakarta.servlet.ServletResponse servletResponse, FilterChain chain)
-            throws IOException, ServletException {
-
-        HttpServletRequest request = (HttpServletRequest) servletRequest;
-        HttpServletResponse response = (HttpServletResponse) servletResponse;
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+            throws ServletException, IOException {
 
         String token = extractJwtToken(request);
 
         if (token != null && validateJwtToken(token)) {
             Claims claims = getClaims(token);
-            String userId = claims.getSubject(); // supabase는 sub에 user id가 있음
+            String uuid = claims.getSubject(); // sub에 UUID
+            String username = claims.get("username", String.class);
+            String email = claims.get("email", String.class);
 
+            // JwtUser 생성
+            JwtUser jwtUser = new JwtUser(uuid, username, email);
+
+            // MyUserDetails 생성
+            MyUserDetails userDetails = new MyUserDetails(jwtUser);
+
+            // Authentication 설정
             UsernamePasswordAuthenticationToken authentication =
-                    new UsernamePasswordAuthenticationToken(userId, null, Collections.emptyList());
-
+                    new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
             SecurityContextHolder.getContext().setAuthentication(authentication);

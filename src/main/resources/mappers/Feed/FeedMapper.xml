@@ -54,7 +54,8 @@
                 ,content = #{content}
             </if>
         </set>
-        WHERE feed_id =#{feedId};
+        WHERE feed_id =#{feedId}
+        AND uuid = #{uuid}
     </update>
 
     <update id="delFeed">

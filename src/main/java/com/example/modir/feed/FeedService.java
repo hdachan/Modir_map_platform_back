@@ -2,8 +2,11 @@ package com.example.modir.feed;
 
 
 import com.example.modir.common.MyFileUtils;
+import com.example.modir.common.excprion.CustomException;
+import com.example.modir.common.jwt.AuthenticationFacade;
 import com.example.modir.feed.model.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,9 +21,17 @@ public class FeedService {
     private final FeedMapper feedMapper;
     private final MyFileUtils myFileUtils;
     private final FeedPicMapper feedPicMapper;
+    private final AuthenticationFacade authenticationFacade;
 
     public FeedPostRes postFeed(InsFeedReq req, List<MultipartFile> pics) {
+        String signedUuid = authenticationFacade.getSignedUserUuid();
+        req.setUuid(signedUuid);
+
         int result = feedMapper.insFeed(req); // 피드 생성
+
+        if(result == 0){
+            throw new CustomException("잘못된 접근입니다.", HttpStatus.BAD_REQUEST);
+        }
 
         long feedId = req.getFeedId(); // 피드 ID 가져오기
 
@@ -73,7 +84,13 @@ public class FeedService {
     }
 
     public int putFeed(UpdFeedReq req) {
+        String signedUuid = authenticationFacade.getSignedUserUuid();
+        req.setUuid(signedUuid);
         int result = feedMapper.updFeed(req);
+
+        if(result == 0){
+            throw new CustomException("잘못된 접근입니다", HttpStatus.BAD_REQUEST);
+        }
 
         return result;
     }

@@ -50,9 +50,7 @@ public class FeedController {
                 .resultData(res)
                 .build();
 
-    }
-
-    @PutMapping
+    }@PutMapping
     @Operation(summary = "게시글 수정")
     public ResultResponse<Integer> putFeed(@RequestBody UpdFeedReq req){
         int result = feedService.putFeed(req);
@@ -63,6 +61,8 @@ public class FeedController {
                 .build();
 
     }
+
+
 
     @PutMapping("/delete")
     @Operation(summary = "게시글 숨김 처리")
