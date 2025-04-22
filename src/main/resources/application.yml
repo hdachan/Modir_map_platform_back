@@ -11,7 +11,7 @@ spring:
   application:
     name: GreenGramVer2
   config:
-    import: "classpath:application-secret.yml"
+    import: "classpath:application-prod.yml"
   servlet:
     multipart:
       max-file-size: 15MB
