@@ -5,6 +5,7 @@ import com.example.modir.common.model.ResultResponse;
 import com.example.modir.feed.model.*;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -56,6 +57,7 @@ public class FeedController {
         int result = feedService.putFeed(req);
 
         return ResultResponse.<Integer>builder()
+                .statusCode(HttpStatus.OK.toString())
                 .resultMessage("게시글 수정 완료")
                 .resultData(result)
                 .build();
@@ -66,8 +68,8 @@ public class FeedController {
 
     @PutMapping("/delete")
     @Operation(summary = "게시글 숨김 처리")
-    public ResultResponse<Integer> delFeed(@RequestBody long feedId){
-        int result = feedService.delFeed(feedId);
+    public ResultResponse<Integer> delFeed(@RequestBody PutFeedReq req){
+        int result = feedService.delFeed(req);
 
         return ResultResponse.<Integer>builder()
                 .resultMessage("게시글 삭제 완료")

@@ -61,7 +61,8 @@
     <update id="delFeed">
         UPDATE feed
         SET `status` = 1
-        WHERE feed_id = #{feedId};
+        WHERE feed_id = #{feedId}
+        AND uuid = #{uuid}
     </update>
 
     <update id="updFeedHits">

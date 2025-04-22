@@ -95,8 +95,15 @@ public class FeedService {
         return result;
     }
 
-    public int delFeed(long feedId) {
-        int result = feedMapper.delFeed(feedId);
+    public int delFeed(PutFeedReq req) {
+        String signedUuid = authenticationFacade.getSignedUserUuid();
+        req.setUuid(signedUuid);
+
+        int result = feedMapper.delFeed(req);
+
+        if(result == 0){
+            throw new CustomException("잘못된 접근입니다", HttpStatus.BAD_REQUEST);
+        }
 
         return result;
     }
