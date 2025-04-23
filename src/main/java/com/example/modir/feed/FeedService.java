@@ -74,11 +74,15 @@ public class FeedService {
     }
 
     public SelFeedDetailRes getFeedDetail(SelFeedDetailReq req) {
-        SelFeedDetailRes res = feedMapper.selFeedDetail(req);
+        SelFeedDetailRes res = new SelFeedDetailRes();
 
         long feedId = req.getFeedId();
         String signedUuid = authenticationFacade.getSignedUserUuid();
         req.setUuid(signedUuid);
+
+        if(signedUuid == null){
+            throw new CustomException("로그인 후 사용해주세요", HttpStatus.BAD_REQUEST);
+        }
 
         List<String> picList = feedPicMapper.selFeedPicList(feedId);
 
@@ -86,6 +90,8 @@ public class FeedService {
 
         feedMapper.updFeedHits(feedId);
         feedMapper.insFeedHits(req);
+
+        feedMapper.selFeedDetail(req);
 
         return res;
     }
