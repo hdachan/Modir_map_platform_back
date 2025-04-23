@@ -84,14 +84,13 @@ public class FeedService {
             throw new CustomException("로그인 후 사용해주세요", HttpStatus.BAD_REQUEST);
         }
 
+        res = feedMapper.selFeedDetail(req);
         List<String> picList = feedPicMapper.selFeedPicList(feedId);
-
         res.setPic(picList);
 
         feedMapper.updFeedHits(feedId);
         feedMapper.insFeedHits(req);
 
-        feedMapper.selFeedDetail(req);
 
         return res;
     }
