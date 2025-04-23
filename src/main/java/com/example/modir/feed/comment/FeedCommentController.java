@@ -8,6 +8,7 @@ import com.example.modir.feed.comment.model.SelFeedCommentReq;
 import com.example.modir.feed.comment.model.SelFeedCommentRes;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +25,7 @@ public class FeedCommentController {
         int result = feedCommentService.postFeedComment(req);
 
         return ResultResponse.<Integer>builder()
+                .statusCode(HttpStatus.OK.toString())
                 .resultMessage("댓글 작성 완료")
                 .resultData(result)
                 .build();
@@ -35,6 +37,7 @@ public class FeedCommentController {
 
 
         return ResultResponse.<SelFeedCommentRes>builder()
+                .statusCode(HttpStatus.OK.toString())
                 .resultMessage("댓글 보여주기 ")
                 .resultData(res)
                 .build();

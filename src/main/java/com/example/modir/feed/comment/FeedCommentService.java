@@ -1,5 +1,6 @@
 package com.example.modir.feed.comment;
 
+import com.example.modir.common.jwt.AuthenticationFacade;
 import com.example.modir.feed.comment.model.InsFeedCommentReq;
 import com.example.modir.feed.comment.model.SelFeedCommentDto;
 import com.example.modir.feed.comment.model.SelFeedCommentReq;
@@ -14,8 +15,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FeedCommentService {
     private final FeedCommentMapper feedCommentMapper;
-
+    private final AuthenticationFacade authenticationFacade;
     public int postFeedComment(InsFeedCommentReq req) {
+        String signedUuid = authenticationFacade.getSignedUserUuid();
+        req.setUuid(signedUuid);
         int result = feedCommentMapper.insFeedComment(req);
 
         return result;

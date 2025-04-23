@@ -1,6 +1,7 @@
 package com.example.modir.feed.comment.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +10,7 @@ import lombok.Setter;
 public class InsFeedCommentReq {
 
     private long feedId;
-    private long uuid;
+    @JsonIgnore
+    private String uuid;
     private String content;
 }

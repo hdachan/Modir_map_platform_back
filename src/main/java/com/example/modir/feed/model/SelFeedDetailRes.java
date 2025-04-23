@@ -3,6 +3,8 @@ package com.example.modir.feed.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 
@@ -15,5 +17,6 @@ public class SelFeedDetailRes {
     private int sumLike;
     private int status;
 
+    List<String> pic;
 
 }

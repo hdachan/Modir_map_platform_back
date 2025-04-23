@@ -5,6 +5,7 @@ import com.example.modir.common.model.ResultResponse;
 import com.example.modir.feed.model.*;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,6 +26,7 @@ public class FeedController {
         FeedPostRes result = feedService.postFeed(req, pics);
 
         return ResultResponse.<FeedPostRes>builder()
+                .statusCode(HttpStatus.OK.toString())
                 .resultMessage("피드 등록 완료")
                 .resultData(result)
                 .build();
@@ -36,6 +38,7 @@ public class FeedController {
         List<selFeedRes> res = feedService.getFeed();
 
         return ResultResponse.<List<selFeedRes>>builder()
+                .statusCode(HttpStatus.OK.toString())
                 .resultMessage("게시글 전체 조회 완료")
                 .resultData(res)
                 .build();
@@ -43,10 +46,11 @@ public class FeedController {
 
     @GetMapping("/detail")
     @Operation(summary = "게시글 상세 조회")
-    public ResultResponse<SelFeedDetailRes> getFeedDetail(SelFeedDetailReq req){
+    public ResultResponse<SelFeedDetailRes> getFeedDetail(@ParameterObject SelFeedDetailReq req){
         SelFeedDetailRes res = feedService.getFeedDetail(req);
 
         return ResultResponse.<SelFeedDetailRes>builder()
+                .statusCode(HttpStatus.OK.toString())
                 .resultMessage("게시글 상세조회 완료")
                 .resultData(res)
                 .build();
@@ -72,6 +76,7 @@ public class FeedController {
         int result = feedService.delFeed(req);
 
         return ResultResponse.<Integer>builder()
+                .statusCode(HttpStatus.OK.toString())
                 .resultMessage("게시글 삭제 완료")
                 .resultData(result)
                 .build();

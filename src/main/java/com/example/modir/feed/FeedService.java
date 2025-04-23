@@ -77,6 +77,13 @@ public class FeedService {
         SelFeedDetailRes res = feedMapper.selFeedDetail(req);
 
         long feedId = req.getFeedId();
+        String signedUuid = authenticationFacade.getSignedUserUuid();
+        req.setUuid(signedUuid);
+
+        List<String> picList = feedPicMapper.selFeedPicList(feedId);
+
+        res.setPic(picList);
+
         feedMapper.updFeedHits(feedId);
         feedMapper.insFeedHits(req);
 

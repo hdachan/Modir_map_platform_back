@@ -17,7 +17,7 @@
         INNER JOIN `user` B
         ON A. `uuid` = B.`uuid`
         WHERE A.feed_id= #{feedId}
-        AND `status` = 0
+        AND A.`status` = 0
         LIMIT #{startIdx}, #{size}
     </select>
 </mapper>

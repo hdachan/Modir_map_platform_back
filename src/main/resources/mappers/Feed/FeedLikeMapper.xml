@@ -6,14 +6,15 @@
 
     <insert id="insFeedLike">
         INSERT INTO feed_like
-        SET feed_id = #{feedId} ,`uuid`= #{uuid}
+           SET feed_id = #{feedId}
+             ,`uuid`= #{uuid}
 
     </insert>
 
     <delete id="delFeedLike">
         DELETE FROM feed_like
-        WHERE feed_id = #{feedId}
-          AND `uuid` = #{uuid}
+         WHERE feed_id = #{feedId}
+           AND `uuid` = #{uuid}
     </delete>
 
 
