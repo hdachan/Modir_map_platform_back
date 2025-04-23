@@ -6,6 +6,7 @@ import com.nimbusds.jose.crypto.RSASSAVerifier;
 import java.security.PublicKey;
 import java.security.interfaces.RSAPublicKey;
 
+///JWT의 RSA 서명을 RSAPublicKey로 검증.
 public class JwtUtil {
 
     public static boolean validateJwtToken(String token, PublicKey publicKey) {

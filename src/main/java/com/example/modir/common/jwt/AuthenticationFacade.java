@@ -1,9 +1,10 @@
 package com.example.modir.common.jwt;
 
-import com.example.modir.common.jwt.JwtUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+
+//이 클래스는 Spring Security의 SecurityContextHolder에서 현재 인증된 사용자의 정보를 가져오는 역할을 합니다.
 
 @Component
 @RequiredArgsConstructor

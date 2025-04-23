@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 
+
+///HTTP 요청의 Authorization 헤더에서 JWT를 추출하고 검증, 사용자 정보를 SecurityContext에 설정.
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
