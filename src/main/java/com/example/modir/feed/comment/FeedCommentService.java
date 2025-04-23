@@ -1,10 +1,7 @@
 package com.example.modir.feed.comment;
 
 import com.example.modir.common.jwt.AuthenticationFacade;
-import com.example.modir.feed.comment.model.InsFeedCommentReq;
-import com.example.modir.feed.comment.model.SelFeedCommentDto;
-import com.example.modir.feed.comment.model.SelFeedCommentReq;
-import com.example.modir.feed.comment.model.SelFeedCommentRes;
+import com.example.modir.feed.comment.model.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -40,5 +37,23 @@ public class FeedCommentService {
             dtoList.remove(dtoList.size()-1);
         }
         return res;
+    }
+
+    public int updFeedComment(UpdFeedCommentReq req) {
+        String signedUuid = authenticationFacade.getSignedUserUuid();
+        req.setUuid(signedUuid);
+
+        int result = feedCommentMapper.updFeedComment(req);
+
+        return result;
+    }
+
+    public int delFeedComment(DelFeedCommentReq req) {
+        String signedUuid = authenticationFacade.getSignedUserUuid();
+        req.setUuid(signedUuid);
+
+        int result = feedCommentMapper.delFeedComment(req);
+
+        return result;
     }
 }

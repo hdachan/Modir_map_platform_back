@@ -12,12 +12,27 @@
 
     <select id="selFeedComment">
         SELECT A.comment_id AS commentId,B.username
-        ,A.content,A.created_at AS createdAt
-        FROM feed_comment A
-        INNER JOIN `user` B
-        ON A. `uuid` = B.`uuid`
-        WHERE A.feed_id= #{feedId}
-        AND A.`status` = 0
-        LIMIT #{startIdx}, #{size}
+             , A.content,A.created_at AS createdAt
+          FROM feed_comment A
+         INNER JOIN `user` B
+            ON A. `uuid` = B.`uuid`
+         WHERE A.feed_id= #{feedId}
+           AND A.`status` = 0
+         LIMIT #{startIdx}, #{size}
     </select>
+
+    <update id="updFeedComment">
+        UPDATE feed_comment
+           SET content = #{content}
+         WHERE comment_id = #{commentId}
+           AND uuid = #{uuid}
+    </update>
+
+    <update id="delFeedComment">
+        UPDATE feed_comment
+           SET `status` = 1
+         WHERE comment_id = #{commentId}
+           AND uuid = #{uuid}
+    </update>
+
 </mapper>
