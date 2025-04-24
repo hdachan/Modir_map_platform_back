@@ -56,4 +56,19 @@ public class FeedCommentService {
 
         return result;
     }
+
+    public int insFeedCommentComment(InsFeedCommentCommentReq req) {
+        String signedUuid = authenticationFacade.getSignedUserUuid();
+        req.setUuid(signedUuid);
+
+        int result = feedCommentMapper.insFeedCommentComment(req);
+
+        return result;
+    }
+
+    public List<SelFeedCommentCommentRes> getSelFeedCommentComment(long parentCommentId) {
+        List<SelFeedCommentCommentRes> res = feedCommentMapper.selFeedCommentComment(parentCommentId);
+
+        return res;
+    }
 }

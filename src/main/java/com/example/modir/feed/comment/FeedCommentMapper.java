@@ -12,4 +12,6 @@ public interface FeedCommentMapper {
     List<SelFeedCommentDto> selFeedComment(SelFeedCommentReq req);
     int updFeedComment(UpdFeedCommentReq req);
     int delFeedComment(DelFeedCommentReq req);
+    int insFeedCommentComment(InsFeedCommentCommentReq req);
+    List<SelFeedCommentCommentRes> selFeedCommentComment(long parentCommentId);
 }

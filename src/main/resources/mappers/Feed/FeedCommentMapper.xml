@@ -18,6 +18,7 @@
             ON A. `uuid` = B.`uuid`
          WHERE A.feed_id= #{feedId}
            AND A.`status` = 0
+           AND A.parent_comment_id IS NULL
          LIMIT #{startIdx}, #{size}
     </select>
 
@@ -35,4 +36,20 @@
            AND uuid = #{uuid}
     </update>
 
+    <insert id="insFeedCommentComment">
+        INSERT INTO feed_comment
+           SET feed_id = #{feedId}
+             , `uuid` = #{uuid}
+             , content = #{content}
+             , parent_comment_id = #{parentCommentId}
+    </insert>
+
+    <select id="selFeedCommentComment">
+        SELECT A.comment_id AS commentId, B.username
+             , A.content, A.created_at AS createdAt
+          FROM feed_comment A
+         INNER JOIN `user` B
+            ON A.`uuid`= B.`uuid`
+         WHERE A.parent_comment_id = #{parentCommentId}
+    </select>
 </mapper>

@@ -66,4 +66,28 @@ public class FeedCommentController {
                 .resultData(result)
                 .build();
     }
+
+    @PostMapping("commment")
+    @Operation(summary = "대댓글 등록")
+    public ResultResponse<Integer> insFeedComment(@RequestBody InsFeedCommentCommentReq req) {
+        int result = feedCommentService.insFeedCommentComment(req);
+
+        return ResultResponse.<Integer>builder()
+                .statusCode(HttpStatus.OK.toString())
+                .resultMessage("대댓글 등록 완료")
+                .resultData(result)
+                .build();
+    }
+
+    @GetMapping("comment")
+    @Operation(summary = "대댓글 보기")
+    public ResultResponse<List<SelFeedCommentCommentRes>> getFeedCommentComment(@ParameterObject long parentCommentId) {
+        List<SelFeedCommentCommentRes> res = feedCommentService.getSelFeedCommentComment(parentCommentId);
+
+        return ResultResponse.<List<SelFeedCommentCommentRes>>builder()
+                .statusCode(HttpStatus.OK.toString())
+                .resultMessage("대댓글 조회 완료")
+                .resultData(res)
+                .build();
+    }
 }
