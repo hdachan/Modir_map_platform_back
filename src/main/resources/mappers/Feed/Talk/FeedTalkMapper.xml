@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.modir.feed.talk.FeedTalkMapper">
+
+    <insert id="insFeedTalkFirstWord">
+        INSERT INTO feed_first_word(feed_id, word, sequence)
+        SELECT #{feedId}, #{word}, #{sequence}
+          FROM feed
+         WHERE feed_id = #{feedId}
+           AND `uuid` = #{uuid}
+    </insert>
+
+    <select id="selFeedTalkFirstWord">
+        SELECT first_word_id AS firstWordId, word, sequence
+          FROM feed_first_word
+         WHERE feed_id = #{feedId}
+    </select>
+
+    <update id="updFeedTalkFirstWord">
+        UPDATE feed_first_word A
+         INNER JOIN feed B
+            ON A.feed_id = B.feed_id
+           SET word = #{word}
+        WHERE first_word_id = #{firstWordId}
+          AND B.`uuid` = #{uuid}
+    </update>
+
+    <delete id="delFeedTalkFirstWord">
+        DELETE A
+          FROM feed_first_word A
+         INNER JOIN feed B
+            ON A.feed_id = B.feed_id
+         WHERE first_word_id = #{firstWordId}
+           AND B.`uuid` = #{uuid}
+    </delete>
+
+</mapper>

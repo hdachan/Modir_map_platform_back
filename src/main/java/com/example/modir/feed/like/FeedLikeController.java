@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("like")
-
 public class FeedLikeController {
     private final FeedLikeService feedLikeService;
 
