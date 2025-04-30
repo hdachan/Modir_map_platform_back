@@ -111,6 +111,11 @@ public class FeedService {
         String signedUuid = authenticationFacade.getSignedUserUuid();
         req.setUuid(signedUuid);
 
+        if(signedUuid == null){
+            throw new CustomException("해당 사용자가 없습니다.", HttpStatus.BAD_REQUEST);
+        }
+
+
         int result = feedMapper.delFeed(req);
 
         if(result == 0){

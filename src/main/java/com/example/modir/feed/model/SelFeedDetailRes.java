@@ -12,6 +12,7 @@ public class SelFeedDetailRes {
     private String username;
     private String title;
     private String content;
+    private String email;
     private int hits;
     private String createdAt;
     private int sumLike;

@@ -35,5 +35,13 @@
          WHERE first_word_id = #{firstWordId}
            AND B.`uuid` = #{uuid}
     </delete>
+    
+    <insert id="insTalkCategory">
+        INSERT INTO talk_category(feed_id, title)
+        SELECT #{feedId}, #{title}
+        FROM feed
+        WHERE feed_id = #{feedId}
+        AND `uuid` = #{uuid}
+    </insert>
 
 </mapper>
