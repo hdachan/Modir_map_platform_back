@@ -3,10 +3,7 @@ package com.example.modir.feed.talk;
 
 import com.example.modir.common.excprion.CustomException;
 import com.example.modir.common.jwt.AuthenticationFacade;
-import com.example.modir.feed.talk.model.DelFeedTalkFirstWordReq;
-import com.example.modir.feed.talk.model.InsFeedTalkFirstWordReq;
-import com.example.modir.feed.talk.model.SelFeedTalkFirstWordRes;
-import com.example.modir.feed.talk.model.UpdFeedTalkFirstWordReq;
+import com.example.modir.feed.talk.model.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -62,5 +59,24 @@ public class FeedTalkService {
         int result = feedTalkMapper.delFeedTalkFirstWord(req);
 
         return result;
+    }
+
+    public int postTalkCategory(InsTalkCategoryReq req){
+        String signedUuid = authenticationFacade.getSignedUserUuid();
+        req.setUuid(signedUuid);
+
+        if(signedUuid == null){
+            throw new CustomException("로그인 후 사용해주세요", HttpStatus.BAD_REQUEST);
+        }
+
+        int result = feedTalkMapper.insTalkCategory(req);
+
+        return result;
+    }
+
+    public List<SelTalkCategoryRes> getTalkCategory(long feedId){
+        List<SelTalkCategoryRes> resList = feedTalkMapper.selTalkCategory(feedId);
+
+        return resList;
     }
 }

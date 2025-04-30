@@ -44,4 +44,10 @@
         AND `uuid` = #{uuid}
     </insert>
 
+    <select id="selTalkCategory">
+        SELECT category_id AS categoryId, title
+        FROM talk_category
+        WHERE feed_id = #{feedId}
+    </select>
+
 </mapper>

@@ -91,6 +91,12 @@ public class FeedService {
         feedMapper.insFeedHits(req);
         res = feedMapper.selFeedDetail(req);
 
+        res.setIsAuthor(0);
+
+        if (signedUuid.equals(res.getUuid())){
+            res.setIsAuthor(1);
+        }
+
 
         return res;
     }

@@ -2,12 +2,11 @@ package com.example.modir.feed.talk;
 
 
 import com.example.modir.common.model.ResultResponse;
-import com.example.modir.feed.talk.model.DelFeedTalkFirstWordReq;
-import com.example.modir.feed.talk.model.InsFeedTalkFirstWordReq;
-import com.example.modir.feed.talk.model.SelFeedTalkFirstWordRes;
-import com.example.modir.feed.talk.model.UpdFeedTalkFirstWordReq;
+import com.example.modir.feed.model.PutFeedReq;
+import com.example.modir.feed.talk.model.*;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +20,7 @@ public class FeedTalkController {
 
     @PostMapping("first-word")
     @Operation(summary = "환영 메시지 작성")
-    public ResultResponse<Integer> postFeedTalkFirstWord(InsFeedTalkFirstWordReq req) {
+    public ResultResponse<Integer> postFeedTalkFirstWord(@RequestBody InsFeedTalkFirstWordReq req) {
         int result = feedTalkService.postFeedTalkFirstWord(req);
 
         return ResultResponse.<Integer>builder()
@@ -33,7 +32,7 @@ public class FeedTalkController {
 
     @GetMapping("first-word")
     @Operation(summary = "환영 메시지 보기")
-    public ResultResponse<List<SelFeedTalkFirstWordRes>> getFeedTalkFirstWord(long feedId) {
+    public ResultResponse<List<SelFeedTalkFirstWordRes>> getFeedTalkFirstWord(@ParameterObject long feedId) {
         List<SelFeedTalkFirstWordRes> resList = feedTalkService.getFeedTalkFirstWord(feedId);
 
         return ResultResponse.<List<SelFeedTalkFirstWordRes>>builder()
@@ -45,7 +44,7 @@ public class FeedTalkController {
 
     @PatchMapping("first_word")
     @Operation(summary = "환영 메시지 수정")
-    public ResultResponse<Integer> putFeedTalkFirstWord(UpdFeedTalkFirstWordReq req) {
+    public ResultResponse<Integer> putFeedTalkFirstWord(@RequestBody UpdFeedTalkFirstWordReq req) {
         int result = feedTalkService.putFeedTalkFirstWord(req);
 
         return ResultResponse.<Integer>builder()
@@ -64,6 +63,30 @@ public class FeedTalkController {
                 .statusCode(HttpStatus.OK.toString())
                 .resultMessage("환영 메시지 삭제 완료")
                 .resultData(result)
+                .build();
+    }
+    
+    @PostMapping("category")
+    @Operation(summary = "카테고리 등록")
+    public ResultResponse<Integer> postFeedTalkCategory(@RequestBody InsTalkCategoryReq req) {
+        int result = feedTalkService.postTalkCategory(req);
+
+        return ResultResponse.<Integer>builder()
+                .statusCode(HttpStatus.OK.toString())
+                .resultMessage("카테고리 등록 완료")
+                .resultData(result)
+                .build();
+    }
+
+    @GetMapping("category")
+    @Operation(summary = "카테고리 보기")
+    public ResultResponse<List<SelTalkCategoryRes>> getFeedTalkCategory(@ParameterObject long feedId){
+        List<SelTalkCategoryRes> resList = feedTalkService.getTalkCategory(feedId);
+
+        return ResultResponse.<List<SelTalkCategoryRes>>builder()
+                .statusCode(HttpStatus.OK.toString())
+                .resultMessage("카테고리 보기 완료")
+                .resultData(resList)
                 .build();
     }
 }

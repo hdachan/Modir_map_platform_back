@@ -26,7 +26,7 @@
 
     <!-- 단일 리스트로 불러오는거 -->
     <select id="selFeedDetail">
-        SELECT B.username, A.title, email
+        SELECT B.username, A.title, A.`uuid`
         , A.content, A.hits
         , A.created_at AS createdAt
         , IFNULL(COUNT(C.feed_id), 0) AS sumLike
