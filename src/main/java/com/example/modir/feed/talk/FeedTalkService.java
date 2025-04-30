@@ -79,4 +79,31 @@ public class FeedTalkService {
 
         return resList;
     }
+
+    public int putTalkCategory(UpdTalkCategoryReq req){
+        String signedUuid = authenticationFacade.getSignedUserUuid();
+        req.setUuid(signedUuid);
+
+        if(signedUuid == null){
+            throw new CustomException("로그인 후 사용해주세요", HttpStatus.BAD_REQUEST);
+        }
+
+        int result = feedTalkMapper.updTalkCategory(req);
+
+        return result;
+
+    }
+
+    public int delTalkCategory(DelTalkCategoryReq req){
+        String signedUuid = authenticationFacade.getSignedUserUuid();
+        req.setUuid(signedUuid);
+
+        if(signedUuid == null){
+            throw new CustomException("로그인 후 사용해주세요", HttpStatus.BAD_REQUEST);
+        }
+
+        int result = feedTalkMapper.delTalkCategory(req);
+
+        return result;
+    }
 }

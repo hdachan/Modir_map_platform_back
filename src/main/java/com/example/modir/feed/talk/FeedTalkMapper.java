@@ -16,4 +16,6 @@ public interface FeedTalkMapper {
     // 카테고리 부분
     int insTalkCategory(InsTalkCategoryReq req);
     List<SelTalkCategoryRes> selTalkCategory(long feedId);
+    int updTalkCategory(UpdTalkCategoryReq req);
+    int delTalkCategory(DelTalkCategoryReq req);
 }

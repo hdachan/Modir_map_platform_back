@@ -89,4 +89,28 @@ public class FeedTalkController {
                 .resultData(resList)
                 .build();
     }
+
+    @PatchMapping("category")
+    @Operation(summary = "카테고리 수정")
+    public ResultResponse<Integer> putTalkCategory(@RequestBody UpdTalkCategoryReq req) {
+        int result = feedTalkService.putTalkCategory(req);
+
+        return ResultResponse.<Integer>builder()
+                .statusCode(HttpStatus.OK.toString())
+                .resultMessage("카테고리 수정 완료")
+                .resultData(result)
+                .build();
+    }
+
+    @DeleteMapping("category")
+    @Operation(summary = "카테고리 삭제")
+    public ResultResponse<Integer> delTalkCategory(DelTalkCategoryReq req) {
+        int result = feedTalkService.delTalkCategory(req);
+
+        return ResultResponse.<Integer>builder()
+                .statusCode(HttpStatus.OK.toString())
+                .resultMessage("카테고리 삭제 완료")
+                .resultData(result)
+                .build();
+    }
 }

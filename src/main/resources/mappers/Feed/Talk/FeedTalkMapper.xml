@@ -50,4 +50,22 @@
         WHERE feed_id = #{feedId}
     </select>
 
+    <update id="updTalkCategory">
+        UPDATE talk_category A
+        INNER JOIN feed B
+        ON A.feed_id = B.feed_id
+        SET A.title = #{title}
+        WHERE category_id = #{categoryId}
+        AND B.`uuid` = #{uuid}
+    </update>
+
+    <delete id="delTalkCategory">
+        DELETE A
+        FROM talk_category A
+        INNER JOIN feed B
+        ON A.feed_id = B.feed_id
+        WHERE category_id = #{categoryId}
+        AND B.`uuid` = #{uuid}
+    </delete>
+
 </mapper>
