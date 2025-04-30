@@ -35,9 +35,9 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:63042")
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS","PATCH") // 허용할 HTTP 메서드
+                .allowedOrigins("*") // 모든 오리진 허용
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH") // 허용할 HTTP 메서드
                 .allowedHeaders("*") // 모든 헤더 허용
-                .allowCredentials(true); // 인증 정보 포함 여부
+                .allowCredentials(false); // 개발 환경에서 Credentials 비활성화
     }
 }

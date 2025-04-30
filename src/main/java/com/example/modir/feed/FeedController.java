@@ -20,15 +20,25 @@ public class FeedController {
 
     @PostMapping
     @Operation(summary = "게시글 등록")
-    //Spring이 JSON을 파라미터로 매핑하지 못해서 오류가 나는 거야. JSON으로 데이터 받을 땐 반드시 @RequestBody 붙여야 해!
-    public ResultResponse<FeedPostRes> postFeed(@RequestPart(required = false)List<MultipartFile> pics
-                                            ,@RequestPart InsFeedReq req){
+    public ResultResponse<FeedPostRes> postFeed(
+            @RequestPart(required = false) List<MultipartFile> pics,
+            @RequestPart InsFeedReq req) {
         FeedPostRes result = feedService.postFeed(req, pics);
-
         return ResultResponse.<FeedPostRes>builder()
                 .statusCode(HttpStatus.OK.toString())
                 .resultMessage("피드 등록 완료")
                 .resultData(result)
+                .build();
+    }
+
+    // ✅ 예외 핸들러 추가 지워도됨 까르르
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResultResponse<?> handleException(Exception e) {
+        e.printStackTrace(); // 에러 콘솔 출력
+        return ResultResponse.builder()
+                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.toString())
+                .resultMessage("서버 오류: " + e.getMessage())
                 .build();
     }
 
