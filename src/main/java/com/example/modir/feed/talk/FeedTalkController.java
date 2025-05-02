@@ -144,8 +144,8 @@ public class FeedTalkController {
 
     @DeleteMapping("result")
     @Operation(summary = "결과 삭제")
-    public ResultResponse<Integer> delAnswerResult(long categoryId) {
-        int result = feedTalkService.delAnswerResult(categoryId);
+    public ResultResponse<Integer> delAnswerResult(long answerId) {
+        int result = feedTalkService.delAnswerResult(answerId);
 
         return ResultResponse.<Integer>builder()
                 .statusCode(HttpStatus.OK.toString())

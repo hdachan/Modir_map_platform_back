@@ -167,6 +167,9 @@ public class FeedTalkService {
     public int delAnswerResult(long answerId){
         int result = feedTalkMapper.delAnswerResult(answerId);
 
+        String deletePath = String.format("%s/answer/%s", myFileUtils.getUploadPath(), answerId);
+        myFileUtils.deleteFolder(deletePath, true);
+
         return result;
     }
 }

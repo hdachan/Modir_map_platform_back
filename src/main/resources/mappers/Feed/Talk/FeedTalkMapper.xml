@@ -101,4 +101,5 @@
         DELETE FROM talk_answer
         WHERE answer_id = #{answerId}
     </delete>
+
 </mapper>

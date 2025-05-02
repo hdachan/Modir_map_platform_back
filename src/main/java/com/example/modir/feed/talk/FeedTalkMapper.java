@@ -26,5 +26,6 @@ public interface FeedTalkMapper {
 
     List<SelAnswerResultRes> selAnswerResult(long categoryId);
 
+
     int delAnswerResult(long answerId);
 }
