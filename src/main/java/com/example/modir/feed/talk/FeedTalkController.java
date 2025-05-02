@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -106,6 +107,45 @@ public class FeedTalkController {
     @Operation(summary = "카테고리 삭제")
     public ResultResponse<Integer> delTalkCategory(DelTalkCategoryReq req) {
         int result = feedTalkService.delTalkCategory(req);
+
+        return ResultResponse.<Integer>builder()
+                .statusCode(HttpStatus.OK.toString())
+                .resultMessage("카테고리 삭제 완료")
+                .resultData(result)
+                .build();
+    }
+
+    @PostMapping("result")
+    @Operation(summary = "결과 등록")
+    public ResultResponse<InsAnswerRes> postAnswer(@RequestPart(required = false) List<MultipartFile> pics,
+                                                   @RequestParam(required = false) String result,
+                                                   @RequestPart("req") InsAnswerReq req) {
+
+        InsAnswerRes res = feedTalkService.insAnswer(req, pics, result  );
+
+        return ResultResponse.<InsAnswerRes>builder()
+                .statusCode(HttpStatus.OK.toString())
+                .resultMessage("결과 등록 완료")
+                .resultData(res)
+                .build();
+    }
+
+    @GetMapping("result")
+    @Operation(summary = "결과 확인")
+    public ResultResponse<List<SelAnswerResultRes>> getAnswerResult(@ParameterObject long categoryId) {
+        List<SelAnswerResultRes> resList = feedTalkService.getAnswerResult(categoryId);
+
+        return ResultResponse.<List<SelAnswerResultRes>>builder()
+                .statusCode(HttpStatus.OK.toString())
+                .resultMessage("결과 등록 완료")
+                .resultData(resList)
+                .build();
+    }
+
+    @DeleteMapping("result")
+    @Operation(summary = "결과 삭제")
+    public ResultResponse<Integer> delAnswerResult(long categoryId) {
+        int result = feedTalkService.delAnswerResult(categoryId);
 
         return ResultResponse.<Integer>builder()
                 .statusCode(HttpStatus.OK.toString())

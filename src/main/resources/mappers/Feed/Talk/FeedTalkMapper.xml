@@ -68,4 +68,37 @@
         AND B.`uuid` = #{uuid}
     </delete>
 
+    <insert id="insTalkAnswer" useGeneratedKeys="true" keyProperty="answerId">
+        INSERT INTO talk_answer
+        SET category_id = #{categoryId}
+    </insert>
+    
+    <insert id="insAnswerPic">
+        INSERT INTO answer_pic (answer_id, pic)
+        VALUES
+        <foreach collection="pics" item="pic" separator=",">
+            (#{answerId}, #{pic})
+        </foreach>
+    </insert>
+
+    <insert id="insAnswerResult">
+        INSERT INTO answer_result
+           SET answer_id = #{answerId}
+             , result = #{result}
+    </insert>
+
+    <select id="selAnswerResult">
+        SELECT A.answer_id AS answerId, B.pic, C.result
+        FROM talk_answer A
+        LEFT JOIN answer_pic B
+        ON A.answer_id = B.answer_id
+        LEFT JOIN answer_result C
+        ON A.answer_id = C.answer_id
+        WHERE A.category_id = #{categoryId}
+    </select>
+
+    <delete id="delAnswerResult">
+        DELETE FROM talk_answer
+        WHERE answer_id = #{answerId}
+    </delete>
 </mapper>

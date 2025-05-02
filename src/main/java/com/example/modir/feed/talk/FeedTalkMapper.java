@@ -18,4 +18,13 @@ public interface FeedTalkMapper {
     List<SelTalkCategoryRes> selTalkCategory(long feedId);
     int updTalkCategory(UpdTalkCategoryReq req);
     int delTalkCategory(DelTalkCategoryReq req);
+
+    // 답변 부분
+    int insTalkAnswer(InsAnswerReq req);
+    int insAnswerPic(AnswerPicDto answerPicDto);
+    int insAnswerResult(long answerId, String result);
+
+    List<SelAnswerResultRes> selAnswerResult(long categoryId);
+
+    int delAnswerResult(long answerId);
 }
