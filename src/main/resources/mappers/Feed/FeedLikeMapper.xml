@@ -17,5 +17,17 @@
            AND `uuid` = #{uuid}
     </delete>
 
+    <select id="selectLikedFeedsByUuid" resultType="com.example.modir.feed.like.model.FeedLikeRes">
+        SELECT
+        f.feed_id AS feedId,
+        f.uuid AS uuid,
+        u.username AS username,
+        f.title AS title
+        FROM feed_like fl
+        INNER JOIN feed f ON fl.feed_id = f.feed_id
+        INNER JOIN user u ON f.uuid = u.uuid
+        WHERE fl.uuid = #{uuid}
+    </select>
+
 
 </mapper>

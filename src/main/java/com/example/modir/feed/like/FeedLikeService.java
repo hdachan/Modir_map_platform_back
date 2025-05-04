@@ -3,8 +3,11 @@ package com.example.modir.feed.like;
 
 import com.example.modir.common.jwt.AuthenticationFacade;
 import com.example.modir.feed.like.model.FeedLikeReq;
+import com.example.modir.feed.like.model.FeedLikeRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -23,5 +26,9 @@ public class FeedLikeService {
         }
 
         return 0;
+    }
+
+    public List<FeedLikeRes> getLikedFeeds(String uuid) {
+        return feedLikeMapper.selectLikedFeedsByUuid(uuid);
     }
 }
