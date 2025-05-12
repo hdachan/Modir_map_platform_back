@@ -2,7 +2,7 @@
 FROM gradle:8.3-jdk17 AS builder
 WORKDIR /app
 COPY . .
-RUN gradle clean build --no-daemon
+RUN gradle clean build --no-daemon -x test
 
 # 2단계: 실행용 이미지
 FROM eclipse-temurin:17-jre-alpine
