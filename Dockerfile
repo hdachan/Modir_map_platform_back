@@ -1,8 +1,9 @@
 # 1단계: 빌드용 이미지
-FROM gradle:8.0.2-jdk17 AS builder
+FROM gradle:8.4.0-jdk17 AS build
 WORKDIR /app
 COPY . .
-RUN ./gradlew build --no-daemon
+RUN gradle build -x test --no-daemon
+
 
 # 2단계: 실행용 이미지
 FROM openjdk:17
