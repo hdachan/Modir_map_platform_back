@@ -1,12 +1,11 @@
 # 1단계: 빌드용 이미지
-FROM gradle:8.4.0-jdk17 AS build
+FROM gradle:8.3-jdk17 AS builder
 WORKDIR /app
 COPY . .
-RUN gradle build -x test --no-daemon
-
+RUN gradle build --no-daemon
 
 # 2단계: 실행용 이미지
-FROM openjdk:17
+FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
-COPY --from=builder /app/build/libs/*.jar app.jar
-CMD ["java", "-jar", "app.jar"]
+COPY --from=build /app/build/libs/*.jar app.jar
+ENTRYPOINT ["java", "-jar", "app.jar"]
