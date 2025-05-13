@@ -22,7 +22,9 @@
         f.feed_id AS feedId,
         f.uuid AS uuid,
         u.username AS username,
-        f.title AS title
+        f.title AS title,
+        f.hits AS hits,
+        f.created_at AS createdAt
         FROM feed_like fl
         INNER JOIN feed f ON fl.feed_id = f.feed_id
         INNER JOIN user u ON f.uuid = u.uuid
