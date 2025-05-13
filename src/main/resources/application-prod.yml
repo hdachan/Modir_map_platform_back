@@ -1,6 +1,14 @@
 spring:
   datasource:
-    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-    url: jdbc:log4jdbc:mariadb://yamabiko.proxy.rlwy.net:3306/railway
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://yamabiko.proxy.rlwy.net:21274/railway
     username: railway
-    password: _D-Ng93QTRUKkxRPl05oqACT4aAUGwxF
+    password: i4PFvotaSxP0ENd0wsABOC6cDe4MYLvN
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MariaDBDialect
