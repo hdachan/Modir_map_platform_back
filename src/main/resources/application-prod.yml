@@ -1,6 +1,6 @@
 spring:
   datasource:
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-    url: jdbc:log4jdbc:mariadb://mariadb.railway.internal:3306/railway
+    url: jdbc:log4jdbc:mariadb://yamabiko.proxy.rlwy.net:3306/railway
     username: railway
     password: _D-Ng93QTRUKkxRPl05oqACT4aAUGwxF
